@@ -2,10 +2,11 @@ package edu.emory.cs.utils.queue;
 
 import java.util.Comparator;
 
+
 public abstract class AbstractPriorityQueue<T extends Comparable<T>> {
     protected Comparator<T> comparator;
 
-    public AbstractPriorityQueue(Comparator<T> comparator) {this.comparator = comparator;}
+    public AbstractPriorityQueue(Comparator<T> comparator) { this.comparator = comparator; }
 
     abstract public void add(T key);
 
@@ -13,5 +14,5 @@ public abstract class AbstractPriorityQueue<T extends Comparable<T>> {
 
     abstract public int size();
 
-    public boolean isEmpty() {return size() == 0;}
+    public boolean isEmpty() { return size() == 0; }
 }

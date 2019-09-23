@@ -3,14 +3,14 @@ package edu.emory.cs.utils.queue;
 import java.util.*;
 
 public class EagerPriorityQueue<T extends Comparable<T>> extends AbstractPriorityQueue<T> {
-    private List<T> keys;
+    private List<T>  keys;
 
     public EagerPriorityQueue(Comparator<T> comparator) {
         super(comparator);
         keys = new ArrayList<>();
     }
 
-    public EagerPriorityQueue() { this(Comparator.naturalOrder()); }
+    public EagerPriorityQueue() { this(Comparator.naturalOrder());}
 
     @Override
     public void add(T key) {

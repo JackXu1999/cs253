@@ -36,7 +36,7 @@ public class PriorityQueueTest {
 
     @Test
     public void testSpeed() {
-        testSpeed(new BinaryHeap<>(), new TernaryHeap<>());
+        testSpeed(new LazyPriorityQueue<>(),new EagerPriorityQueue<>(), new BinaryHeap<>(), new TernaryHeap<>());
     }
 
     @SafeVarargs
