@@ -71,7 +71,7 @@ public class SortTest {
     @Test
     public void testSpeed() {
 //      testSpeed(new HeapSort<>(), new ShellSortKnuth<>(), new SelectionSort<>(), new InsertionSort<>());
-        testSpeed(new HeapSort<>(), new ShellSortKnuth<>(), new ShellSortPratt<>());
+        testSpeed(new ShellSortKnuth<>(), new ShellSortPratt<>(), new ShellSortHibbard<>());
     }
 
     @SafeVarargs
