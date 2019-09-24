@@ -107,9 +107,9 @@ public class SortTest {
         Random rand = new Random();
 
         for (int i = 0; i < iter; i++) {
-            Integer[] keys = Stream.generate(rand::nextInt).limit(size).toArray(Integer[]::new);
-//          Arrays.sort(keys);
-            Arrays.sort(keys, Comparator.reverseOrder());
+            Integer[] keys = Stream.generate(rand::nextInt).limit(size).toArray(Integer[]::new); // Random Case
+//          Arrays.sort(keys); // Best Case
+            Arrays.sort(keys, Comparator.reverseOrder()); // Worst Case
 
             for (int j = 0; j < engines.length; j++)
                 addRuntime(engines[j], ts[j], Arrays.copyOf(keys, size));

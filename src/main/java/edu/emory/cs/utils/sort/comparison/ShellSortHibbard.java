@@ -18,7 +18,7 @@ public class ShellSortHibbard<T extends Comparable<T>> extends ShellSort<T>  {
 
     @Override
     protected void populateSequence(int n) {
-        n /= 2;
+        n /= 3;
 
         for (int t = sequence.size() + 1; ; t++) {
             int h = (int) ((Math.pow(2, t) - 1) / 2);
@@ -29,7 +29,7 @@ public class ShellSortHibbard<T extends Comparable<T>> extends ShellSort<T>  {
 
     @Override
     protected int getSequenceStartIndex(int n) {
-        int index = Collections.binarySearch(sequence, n / 2);
+        int index = Collections.binarySearch(sequence, n / 3);
         if (index < 0) index = -(index + 1);
         if (index == sequence.size()) index--;
         return index;
