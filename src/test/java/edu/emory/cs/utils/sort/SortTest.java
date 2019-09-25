@@ -108,8 +108,8 @@ public class SortTest {
 
         for (int i = 0; i < iter; i++) {
             Integer[] keys = Stream.generate(rand::nextInt).limit(size).toArray(Integer[]::new); // Random Case
-//          Arrays.sort(keys); // Best Case
-            Arrays.sort(keys, Comparator.reverseOrder()); // Worst Case
+//            Arrays.sort(keys); // Best Case
+//            Arrays.sort(keys, Comparator.reverseOrder()); // Worst Case
 
             for (int j = 0; j < engines.length; j++)
                 addRuntime(engines[j], ts[j], Arrays.copyOf(keys, size));
