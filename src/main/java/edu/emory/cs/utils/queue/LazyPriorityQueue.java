@@ -10,8 +10,8 @@ public class LazyPriorityQueue<T extends Comparable<T>> extends AbstractPriority
     private List<T> keys;
 
     public LazyPriorityQueue(Comparator<T> comparator) {
-        super(comparator);
-        keys = new ArrayList<>();
+       super(comparator);
+       keys = new ArrayList<>();
     }
 
     public LazyPriorityQueue() { this(Comparator.naturalOrder()); }
@@ -23,6 +23,7 @@ public class LazyPriorityQueue<T extends Comparable<T>> extends AbstractPriority
 
     @Override
     public T remove() {
+        if (isEmpty()) return null;
         T max = Collections.max(keys, comparator);
         keys.remove(max);
         return max;

@@ -7,7 +7,9 @@ import java.util.Comparator;
 public class SelectionSort<T extends Comparable<T>> extends AbstractSort<T> {
     public SelectionSort() { this(Comparator.naturalOrder()); }
 
-    public SelectionSort(Comparator<T> comparator) { super(comparator); }
+    public SelectionSort(Comparator<T> comparator) {
+        super(comparator);
+    }
 
     @Override
     public void sort(T[] array, final int beginIndex, final int endIndex) {
@@ -15,7 +17,7 @@ public class SelectionSort<T extends Comparable<T>> extends AbstractSort<T> {
             int min = i;
 
             for (int j = i + 1; j < endIndex; j++) {
-                if (compareTo(array, j , min) < 0)
+                if (compareTo(array, j, min) < 0)
                     min = j;
             }
 

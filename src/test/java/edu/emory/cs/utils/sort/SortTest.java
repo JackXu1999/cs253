@@ -18,6 +18,12 @@ package edu.emory.cs.sort;
 
 import edu.emory.cs.utils.sort.AbstractSort;
 import edu.emory.cs.utils.sort.comparison.*;
+import edu.emory.cs.utils.sort.distribution.IntegerBucketSort;
+import edu.emory.cs.utils.sort.distribution.LSDRadixSort;
+import edu.emory.cs.utils.sort.distribution.MSDRadixSort;
+import edu.emory.cs.utils.sort.divide_conquer.IntroSort;
+import edu.emory.cs.utils.sort.divide_conquer.MergeSort;
+import edu.emory.cs.utils.sort.divide_conquer.QuickSort;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -44,13 +50,13 @@ public class SortTest {
         testAccuracy(iter, size, new ShellSortKnuth<>());
         testAccuracy(iter, size, new ShellSortHibbard<>());
         testAccuracy(iter, size, new ShellSortPratt<>());
-//        testAccuracy(iter, size, new MergeSort<>());
-//        testAccuracy(iter, size, new QuickSort<>());
-//        testAccuracy(iter, size, new IntroSort<>(new HeapSort<Integer>()));
-//        testAccuracy(iter, size, new IntroSort<>(new ShellSortKnuth<Integer>()));
+        testAccuracy(iter, size, new MergeSort<>());
+        testAccuracy(iter, size, new QuickSort<>());
+        testAccuracy(iter, size, new IntroSort<>(new HeapSort<Integer>()));
+        testAccuracy(iter, size, new IntroSort<>(new ShellSortKnuth<Integer>()));
 //        testAccuracy(iter, size, new IntegerBucketSort(0, size));
 //        testAccuracy(iter, size, new LSDRadixSort());
-//        testAccuracy(iter, size, new MSDRadixSort());
+        testAccuracy(iter, size, new MSDRadixSort());
     }
 
     private void testAccuracy(final int iter, final int size, AbstractSort<Integer> engine) {
@@ -71,7 +77,7 @@ public class SortTest {
     @Test
     public void testSpeed() {
 //      testSpeed(new HeapSort<>(), new ShellSortKnuth<>(), new SelectionSort<>(), new InsertionSort<>());
-        testSpeed(new ShellSortKnuth<>(), new ShellSortPratt<>(), new ShellSortHibbard<>());
+//        testSpeed(new ShellSortKnuth<>(), new ShellSortPratt<>(), new ShellSortHibbard<>());
     }
 
     @SafeVarargs

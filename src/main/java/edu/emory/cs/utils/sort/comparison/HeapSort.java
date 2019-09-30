@@ -1,5 +1,6 @@
 package edu.emory.cs.utils.sort.comparison;
 
+import edu.emory.cs.utils.queue.BinaryHeap;
 import edu.emory.cs.utils.sort.AbstractSort;
 
 import java.util.Comparator;
@@ -16,14 +17,15 @@ public class HeapSort<T extends Comparable<T>> extends AbstractSort<T> {
     @Override
     public void sort(T[] array, int beginIndex, int endIndex) {
         // heapify all elements
-        for (int k = getParentIndex(beginIndex, endIndex); k >= beginIndex; k--)
-            sink(array, k, beginIndex, endIndex);
+        for (int i = getParentIndex(beginIndex, endIndex); i >= beginIndex; i--) {
+            sink(array, i, beginIndex, endIndex);
+        }
 
         // swap the endIndex element with the root element and sink it
-        while (endIndex > beginIndex + 1) {
-            swap(array, beginIndex, --endIndex);
-            sink(array, beginIndex, beginIndex, endIndex);
-        }
+            while (endIndex > beginIndex + 1) {
+                swap(array, beginIndex, --endIndex);
+                sink(array, beginIndex, beginIndex, endIndex);
+            }
     }
 
 

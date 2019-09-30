@@ -2,15 +2,15 @@ package edu.emory.cs.utils.queue;
 
 import java.util.*;
 
-public class EagerPriorityQueue<T extends Comparable<T>> extends AbstractPriorityQueue<T> {
-    private List<T>  keys;
+public class EagerPriorityQueue<T extends Comparable<T>> extends AbstractPriorityQueue<T>{
+    private List<T> keys;
 
-    public EagerPriorityQueue(Comparator<T> comparator) {
+    public EagerPriorityQueue(Comparator comparator) {
         super(comparator);
         keys = new ArrayList<>();
     }
 
-    public EagerPriorityQueue() { this(Comparator.naturalOrder());}
+    public EagerPriorityQueue() { this(Comparator.naturalOrder()); }
 
     @Override
     public void add(T key) {
@@ -20,8 +20,15 @@ public class EagerPriorityQueue<T extends Comparable<T>> extends AbstractPriorit
     }
 
     @Override
-    public T remove() { return isEmpty() ? null : keys.remove(keys.size() - 1); }
+    public T remove() {
+        return isEmpty() ? null : keys.remove(keys.size() - 1);
+    }
 
     @Override
-    public int size() { return keys.size(); }
+    public int size() {
+        return keys.size();
+    }
+
+
+
 }
