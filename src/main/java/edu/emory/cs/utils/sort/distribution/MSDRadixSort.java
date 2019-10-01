@@ -20,12 +20,15 @@ public class MSDRadixSort extends RadixSort{
     protected void MSDSort(Integer[] array, int beginIndex, int endIndex, int power) {
         // add each element in the input array to the corresponding bucket
         for (int i = beginIndex; i < endIndex; i++)
-            buckets.get(getBucketIndex(array[i], null)).add(array[i] / power); // same integer adds to the same bucket
+            buckets.get(newGetBucketIndex(array[i])).add(array[i] / power); // same integer adds to the same bucket
 
         // merge elements in all buckets to the input array
         for (Deque<Integer> bucket : buckets) {
             while (!bucket.isEmpty())
                 array[beginIndex++] = bucket.remove();
         }
+    }
+    protected int newGetBucketIndex(Integer key) {
+        return key % 10;
     }
 }
