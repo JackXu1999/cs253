@@ -45,18 +45,19 @@ public class SortTest {
         final int size = 100;
 
         testAccuracy(iter, size, new SelectionSort<>());
-        testAccuracy(iter, size, new InsertionSort<Integer>());
+        testAccuracy(iter, size, new InsertionSort<>());
         testAccuracy(iter, size, new HeapSort<>());
         testAccuracy(iter, size, new ShellSortKnuth<>());
-        testAccuracy(iter, size, new ShellSortHibbard<>());
         testAccuracy(iter, size, new ShellSortPratt<>());
+
         testAccuracy(iter, size, new MergeSort<>());
         testAccuracy(iter, size, new QuickSort<>());
         testAccuracy(iter, size, new IntroSort<>(new HeapSort<Integer>()));
         testAccuracy(iter, size, new IntroSort<>(new ShellSortKnuth<Integer>()));
-//        testAccuracy(iter, size, new IntegerBucketSort(0, size));
-//        testAccuracy(iter, size, new LSDRadixSort());
-        testAccuracy(iter, size, new MSDRadixSort());
+
+        testAccuracy(iter, size, new IntegerBucketSort(0, size));
+        testAccuracy(iter, size, new LSDRadixSort());
+//        testAccuracy(iter, size, new MSDRadixSort());
     }
 
     private void testAccuracy(final int iter, final int size, AbstractSort<Integer> engine) {
@@ -64,7 +65,7 @@ public class SortTest {
         Integer[] original, sorted;
 
         for (int i = 0; i < iter; i++) {
-            original = Stream.generate(rand::nextInt).limit(size).toArray(Integer[]::new);
+            original = Stream.generate(() -> rand.nextInt(size)).limit(size).toArray(Integer[]::new);
             sorted = Arrays.copyOf(original, size);
 
             engine.sort(original);
@@ -76,14 +77,16 @@ public class SortTest {
 
     @Test
     public void testSpeed() {
-//      testSpeed(new HeapSort<>(), new ShellSortKnuth<>(), new SelectionSort<>(), new InsertionSort<>());
-//        testSpeed(new ShellSortKnuth<>(), new ShellSortPratt<>(), new ShellSortHibbard<>());
+        final int max_size = 10000;
+
+//      testSpeed(max_size, new HeapSort<>(), new ShellSortKnuth<>(), new SelectionSort<>(), new InsertionSort<>());
+//        testSpeed(max_size, new HeapSort<>(), new ShellSortKnuth<>(), new MergeSort<>(), new QuickSort<>(), new IntroSort<>(new HeapSort<Integer>()), new IntroSort<>(new ShellSortKnuth<Integer>()));
+//        testSpeed(max_size, new HeapSort<>(), new ShellSortKnuth<>(), new MergeSort<>(), new QuickSort<>(), new IntegerBucketSort(0, max_size), new LSDRadixSort());
     }
 
     @SafeVarargs
-    private void testSpeed(AbstractSort<Integer>... engines) {
+    private void testSpeed(final int max_size, AbstractSort<Integer>... engines) {
         final int init_size = 1000;
-        final int max_size = 10000;
         final int inc = 1000;
         final int iter = 1000;
 
@@ -113,9 +116,9 @@ public class SortTest {
         Random rand = new Random();
 
         for (int i = 0; i < iter; i++) {
-            Integer[] keys = Stream.generate(rand::nextInt).limit(size).toArray(Integer[]::new); // Random Case
-//            Arrays.sort(keys); // Best Case
-//            Arrays.sort(keys, Comparator.reverseOrder()); // Worst Case
+            Integer[] keys = Stream.generate(() -> rand.nextInt(size)).limit(size).toArray(Integer[]::new);
+//          Arrays.sort(keys);
+//          Arrays.sort(keys, Comparator.reverseOrder());
 
             for (int j = 0; j < engines.length; j++)
                 addRuntime(engines[j], ts[j], Arrays.copyOf(keys, size));
@@ -137,4 +140,15 @@ public class SortTest {
         t.assignments += engine.getAssignmentCount();
         t.comparisons += engine.getComparisonCount();
     }
+
+//    @Test
+//    public void testOtherSorts() {
+//        final int iter = 100;
+//        final int size = 100;
+//
+//        testAccuracy(iter, size, new ShellSortHibbard<>());
+//        testAccuracy(iter, size, new ShellSortPratt<>());
+//        testAccuracy(iter, size, new MSDRadixSort());
+//        testSpeed(new ShellSortKnuth<>(), new ShellSortHibbard<>(), new ShellSortPratt<>());
+//    }
 }

@@ -15,20 +15,20 @@ public abstract class BucketSort<T extends Comparable<T>> extends AbstractSort<T
      */
     public BucketSort(int numBuckets) {
         super(null);
-        buckets = Stream.generate(ArrayDeque<T>::new).limit(numBuckets).collect(Collectors.toList());
+        buckets = Stream.generate(ArrayDeque<T>::new).limit(numBuckets).collect(Collectors.toList()); // every collection is a stream
     }
 
     protected void sort(T[] array, int beginIndex, int endIndex, Function<T, T> f) {
         // add each element in the input array to the corresponding bucket
         for (int i = beginIndex; i < endIndex; i++)
-            buckets.get(getBucketIndex(array[i], f)).add(array[i]);
+            buckets.get(getBucketIndex(array[i], f)).add(array[i]); // same integer adds to the same bucket
 
         // merge elements in all buckets to the input array
         for (Deque<T> bucket : buckets) {
             while (!bucket.isEmpty())
                 array[beginIndex++] = bucket.remove();
         }
-    }
+}
 
     /**
      * @param key a comparable key.

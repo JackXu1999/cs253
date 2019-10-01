@@ -37,7 +37,7 @@ public class HeapSort<T extends Comparable<T>> extends AbstractSort<T> {
         }
     }
 
-    private int getParentIndex(int beginIndex, int k) { return beginIndex + (k - beginIndex) / 2 - 1; }
+    private int getParentIndex(int beginIndex, int k) { return beginIndex + (k - beginIndex) / 2 - 1; } // k is exclusive
 
     private int getLeftChildIndex(int beginIndex, int k) { return beginIndex + 2 * (k - beginIndex) + 1; }
 }
