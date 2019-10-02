@@ -48,7 +48,6 @@ public class SortTest {
         testAccuracy(iter, size, new InsertionSort<>());
         testAccuracy(iter, size, new HeapSort<>());
         testAccuracy(iter, size, new ShellSortKnuth<>());
-        testAccuracy(iter, size, new ShellSortPratt<>());
 
         testAccuracy(iter, size, new MergeSort<>());
         testAccuracy(iter, size, new QuickSort<>());
@@ -57,7 +56,6 @@ public class SortTest {
 
         testAccuracy(iter, size, new IntegerBucketSort(0, size));
         testAccuracy(iter, size, new LSDRadixSort());
-//        testAccuracy(iter, size, new MSDRadixSort());
     }
 
     private void testAccuracy(final int iter, final int size, AbstractSort<Integer> engine) {
@@ -78,10 +76,9 @@ public class SortTest {
     @Test
     public void testSpeed() {
         final int max_size = 10000;
-
 //      testSpeed(max_size, new HeapSort<>(), new ShellSortKnuth<>(), new SelectionSort<>(), new InsertionSort<>());
-//        testSpeed(max_size, new HeapSort<>(), new ShellSortKnuth<>(), new MergeSort<>(), new QuickSort<>(), new IntroSort<>(new HeapSort<Integer>()), new IntroSort<>(new ShellSortKnuth<Integer>()));
-//        testSpeed(max_size, new HeapSort<>(), new ShellSortKnuth<>(), new MergeSort<>(), new QuickSort<>(), new IntegerBucketSort(0, max_size), new LSDRadixSort());
+//      testSpeed(max_size, new HeapSort<>(), new ShellSortKnuth<>(), new MergeSort<>(), new QuickSort<>(), new IntroSort<>(new HeapSort<Integer>()), new IntroSort<>(new ShellSortKnuth<Integer>()));
+        testSpeed(max_size, new LSDRadixSort());
     }
 
     @SafeVarargs
