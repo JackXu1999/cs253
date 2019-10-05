@@ -56,6 +56,7 @@ public class SortTest {
 
         testAccuracy(iter, size, new IntegerBucketSort(0, size));
         testAccuracy(iter, size, new LSDRadixSort());
+        testAccuracy(iter, size, new MSDRadixSort());
     }
 
     private void testAccuracy(final int iter, final int size, AbstractSort<Integer> engine) {
@@ -78,7 +79,7 @@ public class SortTest {
         final int max_size = 10000;
 //      testSpeed(max_size, new HeapSort<>(), new ShellSortKnuth<>(), new SelectionSort<>(), new InsertionSort<>());
 //      testSpeed(max_size, new HeapSort<>(), new ShellSortKnuth<>(), new MergeSort<>(), new QuickSort<>(), new IntroSort<>(new HeapSort<Integer>()), new IntroSort<>(new ShellSortKnuth<Integer>()));
-        testSpeed(max_size, new LSDRadixSort());
+        testSpeed(max_size, new LSDRadixSort(), new MSDRadixSort());
     }
 
     @SafeVarargs
@@ -115,7 +116,7 @@ public class SortTest {
         for (int i = 0; i < iter; i++) {
             Integer[] keys = Stream.generate(() -> rand.nextInt(size)).limit(size).toArray(Integer[]::new);
 //          Arrays.sort(keys);
-//          Arrays.sort(keys, Comparator.reverseOrder());
+          Arrays.sort(keys, Comparator.reverseOrder());
 
             for (int j = 0; j < engines.length; j++)
                 addRuntime(engines[j], ts[j], Arrays.copyOf(keys, size));
