@@ -25,7 +25,7 @@ public class MSDRadixSort extends RadixSort{
         for (bit--, bi = beginIndex, i = 0; i < 10; i++, bi = ei) {
             Deque<Integer> bucket = buckets.get(i);
             j = ei = bi + bucket.size() - init_sizes[i];
-            while (bucket.size() > init_sizes[i]) array[--j] = bucket.removeLast();
+            while (bucket.size() > init_sizes[i]) array[--j] = bucket.removeLast(); // do not get this line
             sort(array, bi, ei, bit);
         }
     }
