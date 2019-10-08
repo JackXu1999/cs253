@@ -185,7 +185,5 @@ public abstract class AbstractBinarySearchTree<T extends Comparable<T>, N extend
         return node.hasRightChild() ? findMaxNode(node.getRightChild()) : node;
     }
 
-    public String toString() {
-        return (root != null) ? root.toString() : "null";
-    }
+    public String toString() { return (root != null) ? root.toString() : "null"; }
 }

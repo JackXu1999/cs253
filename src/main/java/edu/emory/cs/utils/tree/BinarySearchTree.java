@@ -1,5 +1,8 @@
 package edu.emory.cs.utils.tree;
 
+/**
+ * @author Jinho D. Choi ({@code jinho.choi@emory.edu})
+ */
 public class BinarySearchTree<T extends Comparable<T>> extends AbstractBinarySearchTree<T,BinaryNode<T>>
 {
     /**

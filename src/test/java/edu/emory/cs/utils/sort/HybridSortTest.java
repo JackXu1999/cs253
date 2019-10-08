@@ -3,6 +3,7 @@ package edu.emory.cs.utils.sort;
 import edu.emory.cs.utils.sort.hybrid.HybridSort;
 import edu.emory.cs.utils.sort.hybrid.HybridSortChoi;
 import edu.emory.cs.utils.sort.hybrid.HybridSortXu;
+import edu.emory.cs.utils.sort.hybrid.HybridSortXu2;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -18,7 +19,7 @@ public class HybridSortTest {
     @Test
     public void testAccuracy() {
         HybridSort<Integer> gold = new HybridSortChoi<>();
-        HybridSort<Integer> mine = new HybridSortXu<>();  // TODO: replace with your class
+        HybridSort<Integer> mine = new HybridSortXu2<>();  // TODO: replace with your class
 
         Integer[][] input = {{0, 1, 2, 3}, {7, 6, 5, 4}, {0, 3, 1, 2}, {4, 7, 6, 5}, {9, 8, 11, 10}};
         testAccuracy(input, gold, mine);
@@ -39,10 +40,10 @@ public class HybridSortTest {
     @SuppressWarnings("unchecked")
     public void testSpeed() {
         int row = 100, col = 100;
-        double ratio = 0.25;
+        double ratio = 0.8;
 
         HybridSort<Integer> gold = new HybridSortChoi<>();
-        HybridSort<Integer> mine = new HybridSortXu<>();  // TODO: replace with your class
+        HybridSort<Integer> mine = new HybridSortXu2<>();  // TODO: replace with your class
 
 //        for (col=100; col<=1500; col+=100)
         for (row = 100; row <= 1500; row += 100) {

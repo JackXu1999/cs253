@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.emory.cs.sort;
+package edu.emory.cs.utils.sort;
 
 
 import edu.emory.cs.utils.sort.AbstractSort;

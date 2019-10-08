@@ -35,7 +35,7 @@ public abstract class AbstractBinaryNode<T extends Comparable<T>, N extends Abst
     public N getSibling() {
         if (hasParent()) {
             N parent = getParent();
-            return parent.isLeftChild((N) this) ? parent.getRightChild() : parent.getLeftChild();
+            return parent.isLeftChild((N) this) ? parent.getRightChild() : parent.getLeftChild(); // "this" is the AbstractBinaryNode
         }
 
         return null;
