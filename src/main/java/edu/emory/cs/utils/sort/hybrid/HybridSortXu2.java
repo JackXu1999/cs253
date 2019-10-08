@@ -1,5 +1,6 @@
 package edu.emory.cs.utils.sort.hybrid;
 
+import edu.emory.cs.utils.queue.MinHeap;
 import edu.emory.cs.utils.sort.AbstractSort;
 import edu.emory.cs.utils.sort.comparison.HeapSort;
 import edu.emory.cs.utils.sort.comparison.InsertionSort;
@@ -15,6 +16,8 @@ public class HybridSortXu2 <T extends Comparable<T>> implements HybridSort<T> {
     private AbstractSort<T> ShellSort; // mostly sorted cases and sorted cases
     private AbstractSort<T> IntroSort; // random cases
     private  AbstractSort<T> InsertionSort;
+    private PriorityQueue<T> Pqueue;
+//    private AbstractSort<T> HeapSort;
 
 
 
@@ -23,12 +26,14 @@ public class HybridSortXu2 <T extends Comparable<T>> implements HybridSort<T> {
         ShellSort = new ShellSortKnuth<>();
         IntroSort = new IntroSort<T>(new HeapSort<T>());
         InsertionSort = new InsertionSort<>();
+        Pqueue = new PriorityQueue<>();
+//        HeapSort = new HeapSort<>();
     }
 
     private int determine(T[] input) {
         int count = 0;
         int j = 0;
-        while (j <= 12) {
+        while (j <= 20) {
             if (input[j].compareTo(input[j++]) <= 0) {
                 count++;
                 j++;
@@ -41,59 +46,69 @@ public class HybridSortXu2 <T extends Comparable<T>> implements HybridSort<T> {
         return count;
     }
 
-    @Override
-    public T[] sort(T[][] input) {
+    private void individualSort(T[][] input, int i) {
         int NumberOfRows = input.length; // number of the rows
-        PriorityQueue<T> Pqueue = new PriorityQueue<>();
-//        ArrayList<Integer> RowLength = new ArrayList<>(); // arrayList of number of columns
-//        ArrayList<Integer> sequence = new ArrayList<>(); // arrayList of Integers used to determine the row cases
 
-
-        for (int i = 0; i < NumberOfRows; i++) {
-            if (input[i].length <= 15) {
+//        for (int i = 0; i < NumberOfRows; i++) {
+            if (input[i].length <= 25) {
                 InsertionSort.sort(input[i]);
             } else {
-                if (determine(input[i]) == 12 ) { // ascending order
+                if (determine(input[i]) == 20) { // ascending order
 
-                } else if (determine(input[i]) == -12) { // descending order
+                } else if (determine(input[i]) == -20) { // descending order
                     ShellSort.sort(input[i]);
-                } else if (determine(input[i]) > 6) { // mostly in ascending order
+                } else if (determine(input[i]) > 10) { // mostly in ascending order
                     ShellSort.sort(input[i]);
-                } else if (determine(input[i]) < -6) { // mostly in descending order
+                } else if (determine(input[i]) < -10) { // mostly in descending order
                     ShellSort.sort(input[i]);
                 } else {
                     IntroSort.sort(input[i]);
                 }
             }
+//        }
+    }
+
+    private T[] merge (T[] input1, T[] input2, int index) {
+        int length1 = input1.length;
+        int length2 = input2.length;
+        int totalLength = length1 + length2;
+        T[] output = (T[]) Array.newInstance(input1[0].getClass(), totalLength);
+        int i = 0, j = 0, k = 0;
+        while (i < length1 && j < length2) {
+            if (input1[i].compareTo(input2[j]) < 0)
+                output[k++] = input1[i++];
+            else
+                output[k++] = input2[j++];
+        }
+        while (i < length1)
+            output[k++] = input1[i++];
+        while (j < length2)
+            output[k++] = input2[j++];
+        return output;
+    }
+
+    @Override
+    public T[] sort(T[][] input) {
+        int NumberOfRows = input.length; // number of the rows
+
+//        individualSort(input);
+
+        for (int i = 0; i < NumberOfRows; i++) {
+            merge()
         }
 
-        for (int i = 0; i < NumberOfRows; i++)
-            for (int j = 0; j < input[i].length; j++)
-                Pqueue.add(input[i][j]); // use a PriorityQueue to store the sorted results
+//        for (int i = 0; i < NumberOfRows; i++)
+//            for (int j = 0; j < input[i].length; j++){
+//                Pqueue.add(input[i][j]); // use a PriorityQueue to store the sorted results
+//            }
 
-        T[] result = (T[]) Array.newInstance(input[0][0].getClass(), Pqueue.size());
-        int k = 0;
-        while (Pqueue.size() != 0)
-            result[k++] = Pqueue.remove();
+//        T[] result = (T[]) Array.newInstance(input[0][0].getClass(), Pqueue.size());
+//        int k = 0;
+//        while (Pqueue.size() != 0)
+//            result[k++] = Pqueue.remove();
+
         return result;
     }
 
-//    private ArrayList<T> merge(T[] input1, T[] input2) {
-//        int a = input1.length;
-//        int b = input2.length;
-//        int length;
-//        int fst = 0;
-//        int snd = 0;
-//        if (a >= b) length = a;
-//        else length = b;
-//        for (int i = 0; i < length; i++) {
-//            if (input1[i] != null && input2[i] != null) {
-//                if (input1[i].compareTo(input2[i]) <= 0) output.add(input1[i]);
-//                else output.add(input2[i]);
-//            }
-//            else if (input1[i] == null && input2[i] != null) output.add(input2[i]);
-//            else if (input1[i] != null && input2[i] == null) output.add(input1[i]);
-//        }
-//        return output;
-//    }
+
 }

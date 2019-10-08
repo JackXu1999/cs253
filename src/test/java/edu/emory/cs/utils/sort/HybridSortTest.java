@@ -46,7 +46,7 @@ public class HybridSortTest {
         HybridSort<Integer> mine = new HybridSortXu2<>();  // TODO: replace with your class
 
 //        for (col=100; col<=1500; col+=100)
-        for (row = 100; row <= 1500; row += 100) {
+        for (row = 100; row <= 10000; row += 1000) {
             long[] time = testSpeed(row, col, ratio, gold, mine);
             StringJoiner join = new StringJoiner("\t");
             join.add(String.format("Row: %d, Col: %d, ratio: %4.2f", row, col, ratio));
