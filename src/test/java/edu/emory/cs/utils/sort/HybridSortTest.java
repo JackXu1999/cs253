@@ -40,13 +40,13 @@ public class HybridSortTest {
     @SuppressWarnings("unchecked")
     public void testSpeed() {
         int row = 100, col = 100;
-        double ratio = 0.2;
+        double ratio = 0.5;
 
         HybridSort<Integer> gold = new HybridSortChoi<>();
         HybridSort<Integer> mine = new HybridSortXu2<>();  // TODO: replace with your class
 
 //        for (col=100; col<=1500; col+=100)
-        for (row = 100; row <= 10000; row += 1000) {
+        for (row = 50; row <= 500; row += 50) {
             long[] time = testSpeed(row, col, ratio, gold, mine);
             StringJoiner join = new StringJoiner("\t");
             join.add(String.format("Row: %d, Col: %d, ratio: %4.2f", row, col, ratio));
