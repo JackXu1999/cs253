@@ -1,7 +1,5 @@
 package edu.emory.cs.utils.sort.hybrid;
 
-import edu.emory.cs.utils.queue.AbstractPriorityQueue;
-import edu.emory.cs.utils.queue.LazyPriorityQueue;
 import edu.emory.cs.utils.sort.AbstractSort;
 import edu.emory.cs.utils.sort.comparison.HeapSort;
 import edu.emory.cs.utils.sort.comparison.InsertionSort;
@@ -25,9 +23,22 @@ public class HybridSortXu2 <T extends Comparable<T>> implements HybridSort<T> {
         ShellSort = new ShellSortKnuth<>();
         IntroSort = new IntroSort<T>(new HeapSort<T>());
         InsertionSort = new InsertionSort<>();
+    }
 
-
-
+    private int determine(T[] input) {
+        int count = 0;
+        int j = 0;
+        while (j <= 12) {
+            if (input[j].compareTo(input[j++]) <= 0) {
+                count++;
+                j++;
+            }
+            else {
+                count--;
+                j++;
+            }
+        }
+        return count;
     }
 
     @Override
@@ -37,38 +48,28 @@ public class HybridSortXu2 <T extends Comparable<T>> implements HybridSort<T> {
 //        ArrayList<Integer> RowLength = new ArrayList<>(); // arrayList of number of columns
 //        ArrayList<Integer> sequence = new ArrayList<>(); // arrayList of Integers used to determine the row cases
 
-//        if (NumberOfRows <= 5) { // if there aren't many rows, we just simply merge and sort them
-//            int size = Arrays.stream(input).mapToInt(t -> t.length).sum();
-//            T[] output = (T[]) Array.newInstance(input[0][0].getClass(), size);
-//            int beginIndex = 0;
-//
-//            for (T[] t : input) {
-//                System.arraycopy(t, 0, output, beginIndex, t.length);
-//                beginIndex += t.length;
-//            }
-//
-//            QuickSort.sort(output);
-//            return output;
-//        }
 
-//        for (int i = 0; i < NumberOfRows; i++) { // add the length of each row
-//            RowLength.add(input[i].length);
-//        }
-//
-//        for (int i = 0; i < 20; i++) {
-//            sequence.add((int) ((Math.pow(3, i) - 1) / 2)); // use Knuth Sequence to generate the determinants
-//        }
         for (int i = 0; i < NumberOfRows; i++) {
-            if (input[i].length <= 10) {
+            if (input[i].length <= 15) {
                 InsertionSort.sort(input[i]);
             } else {
-                IntroSort.sort(input[i]);
+                if (determine(input[i]) == 12 ) { // ascending order
+
+                } else if (determine(input[i]) == -12) { // descending order
+                    ShellSort.sort(input[i]);
+                } else if (determine(input[i]) > 6) { // mostly in ascending order
+                    ShellSort.sort(input[i]);
+                } else if (determine(input[i]) < -6) { // mostly in descending order
+                    ShellSort.sort(input[i]);
+                } else {
+                    IntroSort.sort(input[i]);
+                }
             }
         }
 
         for (int i = 0; i < NumberOfRows; i++)
             for (int j = 0; j < input[i].length; j++)
-                Pqueue.add(input[i][j]);
+                Pqueue.add(input[i][j]); // use a PriorityQueue to store the sorted results
 
         T[] result = (T[]) Array.newInstance(input[0][0].getClass(), Pqueue.size());
         int k = 0;

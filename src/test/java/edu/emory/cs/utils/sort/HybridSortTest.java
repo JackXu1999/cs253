@@ -40,7 +40,7 @@ public class HybridSortTest {
     @SuppressWarnings("unchecked")
     public void testSpeed() {
         int row = 100, col = 100;
-        double ratio = 0.8;
+        double ratio = 0.2;
 
         HybridSort<Integer> gold = new HybridSortChoi<>();
         HybridSort<Integer> mine = new HybridSortXu2<>();  // TODO: replace with your class
