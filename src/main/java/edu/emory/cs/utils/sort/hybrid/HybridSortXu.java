@@ -34,9 +34,6 @@ public class HybridSortXu <T extends Comparable<T>> implements HybridSort<T> {
             if (input[j].compareTo(input[j+1]) <= 0) {
                 count++;
             }
-            else {
-                count--;
-            }
         }
         return count;
     }
@@ -50,11 +47,11 @@ public class HybridSortXu <T extends Comparable<T>> implements HybridSort<T> {
         } else {
             if (determine(input[i]) == 20) { // ascending order
                 InsertionSort.sort(input[i]);
-            } else if (determine(input[i]) == -20) { // descending order
+            } else if (determine(input[i]) == 0) { // descending order
                 ShellSort.sort(input[i]);
-            } else if (determine(input[i]) > 7) { // mostly in ascending order
+            } else if (determine(input[i]) > 15) { // mostly in ascending order
                 ShellSort.sort(input[i]);
-            } else if (determine(input[i]) < -7) { // mostly in descending order
+            } else if (determine(input[i]) < -15) { // mostly in descending order
                 ShellSort.sort(input[i]);
             } else {
                 QuickSort.sort(input[i]);
@@ -91,7 +88,6 @@ public class HybridSortXu <T extends Comparable<T>> implements HybridSort<T> {
             for (int j = 0; j < input[i].length; j++)
                 Pqueue.add(input[i][j]);
         }
-
 
 //        for (int i = 0; i < NumberOfRows; i++)
 //            for (int j = 0; j < input[i].length; j++){
