@@ -36,19 +36,8 @@ public class ShellSortPratt<T extends Comparable<T>> extends ShellSort<T> {
             if (h > n) break;
         }
         sequence = new ArrayList<> (new HashSet<>(sequence)); // remove the duplicates in the List
-//        System.out.println(sequence);
         Collections.sort(sequence);
-//        for (int i = sequence.size(); i <= n; i++) {
-//            if ((Math.pow(2, i) <= n) || (Math.pow(3, i) <= n)) sequence.add(i);
-//        }
-//        System.out.println((sequence));
-//        Collections.sort(sequence);
-//        for (int i = sequence.size(); i <= n; i++) {
-//            for (int j = sequence.size(); j <= i; j++) {
-//                if ( i  Math.pow(3, i) * Math.pow(2, j) ) {
-//
-//                }
-//        }
+
     }
     @Override
     protected int getSequenceStartIndex(int n) {
