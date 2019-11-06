@@ -8,7 +8,7 @@ public class Graph {
 
     @SuppressWarnings("unchecked")
     public Graph(int size) {
-        incoming_edges = (List<Edge>[]) Stream.generate(ArrayList<Edge>::new).limit(size).toArray(List<?>[]::new);
+        incoming_edges = (List<Edge>[]) Stream.generate(ArrayList<Edge>::new).limit(size).toArray(List<?>[]::new); // array of lists
     }
 
     public List<Edge> getIncomingEdges(int target) {
