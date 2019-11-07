@@ -18,7 +18,7 @@ public class AutocompleteTest {
     @Test
     public void test() throws FileNotFoundException {
         final String dict_file = "src/main/resources/dict.txt";
-        final int max = 3;
+        final int max = 5;
 
         Autocomplete<?> ac = new AutocompleteXu(dict_file, max);
         Eval eval = new Eval();
@@ -29,18 +29,23 @@ public class AutocompleteTest {
         String prefix;
         List<String> expected;
 
-        prefix = "ababdehww";
+        prefix = "zoo";
         expected = List.of("she", "ship", "shell");
         testGetCandidates(ac, eval, prefix, expected);
 
-//        prefix = "sh";
-//        expected = List.of("she", "ship", "shell", "school");
-//        testGetCandidates(ac, eval, prefix, expected);
-//
-//        prefix = "sh";
-//        expected = List.of("ship", "she", "shell");
-//        ac.pickCandidate(prefix, "ship");
-//        testGetCandidates(ac, eval, prefix, expected);
+        prefix = "shi";
+        expected = List.of("ship", "she", "shell");
+        ac.pickCandidate(prefix, "shipp");
+        testGetCandidates(ac, eval, prefix, expected);
+
+        prefix = "shi";
+        expected = List.of("ship", "she", "shell");
+        ac.pickCandidate(prefix, "shit");
+        testGetCandidates(ac, eval, prefix, expected);
+
+        prefix = "sh";
+        expected = List.of("she", "ship", "shell", "school");
+        testGetCandidates(ac, eval, prefix, expected);
 
         System.out.printf("Score: %d/%d\n", eval.correct, eval.total);
     }
