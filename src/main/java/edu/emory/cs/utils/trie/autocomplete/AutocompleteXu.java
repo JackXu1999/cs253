@@ -27,11 +27,10 @@ public class AutocompleteXu <T extends Comparable<T>> extends Autocomplete<T>{
     public List<String> getCandidates(String prefix) {
         String prefix_trimmed = prefix.trim(); // trim out the white space
         List<String> list = new ArrayList<>();
-        List<String> final_list = new ArrayList<>();
+        List<String> final_list = new ArrayList<>(); // final output list
         if (find(prefix_trimmed)!= null) { // the case when we can find the prefix in the tries
             TrieNode<T> node = find(prefix_trimmed); // find the node with trimmed prefix and to lowercase
             Map<Character, TrieNode<T>> children = node.getChildrenMap(); // get all the children into a map
-
             if (children == null) { // if there's no children, return list
                 return list;
             } else {
@@ -39,13 +38,13 @@ public class AutocompleteXu <T extends Comparable<T>> extends Autocomplete<T>{
             }
             Collections.sort(list); // sort the list so that it's alphabetically ordered
             if (node.getValue() != null) {
-                final_list.addAll((List)node.getValue());
                 for (int i = 0; i < ((List)node.getValue()).size(); i++) {
                     list.remove(((List)node.getValue()).get(i)); // remove duplicates
                 }
+                final_list.addAll((List)node.getValue());
             }
             final_list.addAll(list);
-            return (final_list.size() >= max) ? final_list.subList(0, max) : final_list.subList(0, list.size()) ;
+            return (final_list.size() >= max) ? final_list.subList(0, max) : final_list.subList(0, final_list.size()) ;
         } else { // the case when we cannot find the prefix in the tries
             return list;
         }
@@ -77,11 +76,10 @@ public class AutocompleteXu <T extends Comparable<T>> extends Autocomplete<T>{
             picked_list.add(0, candidate);
             node.setValue(picked_list);
         } else {
+            ((List)node.getValue()).remove(candidate); // remove duplicates in the getValue list
             ((List)node.getValue()).add(0, candidate);
-        }
 
-        // TODO remove the duplicates, how to match the pick_list to the prefix?
-        // some checking, if (... == prefix) then...
+        }
     }
 
 }

@@ -29,13 +29,42 @@ public class AutocompleteTest {
         String prefix;
         List<String> expected;
 
-        prefix = "zoo";
-        expected = List.of("she", "ship", "shell");
+//        prefix = "zoo";
+//        expected = List.of("she", "ship", "shell");
+//        testGetCandidates(ac, eval, prefix, expected);
+//
+//        prefix = "zoo";
+//        expected = List.of("ship", "she", "shell");
+//        ac.pickCandidate(prefix, "zoobenthos");
+//        testGetCandidates(ac, eval, prefix, expected);
+//
+//        prefix = "zoobentho";
+//        expected = List.of("ship", "she", "shell");
+//        ac.pickCandidate(prefix, "zoobenthosdddd");
+//        testGetCandidates(ac, eval, prefix, expected);
+
+//        prefix = "zoobentho";
+//        expected = List.of("ship", "she", "shell");
+//        ac.pickCandidate(prefix, "zoobenthos");
+//        testGetCandidates(ac, eval, prefix, expected);
+//
+//        prefix = "zoobentho";
+//        expected = List.of("ship", "she", "shell");
+//        testGetCandidates(ac, eval, prefix, expected);
+
+        prefix = "shi";
+        expected = List.of("ship", "she", "shell");
+        ac.pickCandidate(prefix, "shishi");
         testGetCandidates(ac, eval, prefix, expected);
 
         prefix = "shi";
         expected = List.of("ship", "she", "shell");
-        ac.pickCandidate(prefix, "shipp");
+        ac.pickCandidate(prefix, "ship");
+        testGetCandidates(ac, eval, prefix, expected);
+
+        prefix = "shi";
+        expected = List.of("ship", "she", "shell");
+        ac.pickCandidate(prefix, "ship");
         testGetCandidates(ac, eval, prefix, expected);
 
         prefix = "shi";
@@ -43,8 +72,32 @@ public class AutocompleteTest {
         ac.pickCandidate(prefix, "shit");
         testGetCandidates(ac, eval, prefix, expected);
 
-        prefix = "sh";
+        prefix = "shit";
+        expected = List.of("she", "ship", "shell");
+        testGetCandidates(ac, eval, prefix, expected);
+
+        prefix = "bi";
         expected = List.of("she", "ship", "shell", "school");
+        testGetCandidates(ac, eval, prefix, expected);
+
+        for (int i = 0; i < 3; i ++) {
+            prefix = "bi";
+            expected = List.of("ship", "she", "shell");
+            ac.pickCandidate(prefix, "biacetylene");
+            testGetCandidates(ac, eval, prefix, expected);
+        }
+
+        prefix = "bic";
+        expected = List.of("ship", "she", "shell");
+        testGetCandidates(ac, eval, prefix, expected);
+
+        prefix = "bi";
+        expected = List.of("ship", "she", "shell");
+        ac.pickCandidate(prefix, "biabo");
+        testGetCandidates(ac, eval, prefix, expected);
+
+        prefix = "bi";
+        expected = List.of("ship", "she", "shell");
         testGetCandidates(ac, eval, prefix, expected);
 
         System.out.printf("Score: %d/%d\n", eval.correct, eval.total);
