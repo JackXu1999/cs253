@@ -6,6 +6,7 @@ import edu.emory.cs.utils.trie.TrieNode;
 
 import java.io.FileNotFoundException;
 import java.util.*;
+import java.util.concurrent.DelayQueue;
 
 public class AutocompleteXu <T extends Comparable<T>> extends Autocomplete<T>{
     int max;
@@ -36,7 +37,7 @@ public class AutocompleteXu <T extends Comparable<T>> extends Autocomplete<T>{
             } else {
                 wordSuggest(node, prefix_trimmed, list); // otherwise, call the recursive method to find all the candidates
             }
-            Collections.sort(list); // sort the list so that it's alphabetically ordered
+//            Collections.sort(list); // sort the list so that it's alphabetically ordered
             if (node.getValue() != null) {
                 for (int i = 0; i < ((List)node.getValue()).size(); i++) {
                     list.remove(((List)node.getValue()).get(i)); // remove duplicates
@@ -50,11 +51,34 @@ public class AutocompleteXu <T extends Comparable<T>> extends Autocomplete<T>{
         }
     }
 
-    private void wordSuggest(TrieNode node, String prefix, List<String> list) {
-        if (node.isEndState()) {
-            list.add(prefix); // add to the list
+    private String findword(TrieNode node, String prefix) {
+        String res = "";
+        while (node != find(prefix)) {
+            res = (node.getKey() + res);
+            node = node.getParent();
         }
-        node.getChildrenMap().forEach((c, t) -> wordSuggest((TrieNode)t, prefix + c, list));
+        return prefix + res;
+    }
+
+    private void wordSuggest(TrieNode node, String prefix, List<String> list) {
+        Queue<TrieNode> queue = new ArrayDeque<>();
+        queue.add(node);
+        while(!queue.isEmpty()) {
+            TrieNode<T> current = queue.poll();
+            if ((current).isEndState()) {
+                list.add(findword(current, prefix));
+            }
+            Map<Character, TrieNode<T>> child = current.getChildrenMap();
+            for(Map.Entry<Character, TrieNode<T>> entry : child.entrySet()) {
+                if (list.size() >= max) break;
+                queue.add(entry.getValue());
+            }
+        }
+
+//        if (node.isEndState()) {
+//            list.add(prefix); // add to the list
+//        }
+//            node.getChildrenMap().forEach((c, t) -> wordSuggest((TrieNode)t, prefix + c, list));
         // traverse through the Map using lambda notation, and passing the node and char to the recursive call
     }
 
