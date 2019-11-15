@@ -38,19 +38,23 @@ public class AutocompleteTest {
 //        ac.pickCandidate(prefix, "zoobenthos");
 //        testGetCandidates(ac, eval, prefix, expected);
 //
-//        prefix = "zoobentho";
-//        expected = List.of("ship", "she", "shell");
-//        ac.pickCandidate(prefix, "zoobenthosdddd");
-//        testGetCandidates(ac, eval, prefix, expected);
+        prefix = "zoobenthosghgggs";
+        expected = List.of("ship", "she", "shell");
+        ac.pickCandidate(prefix, "zoobenthosdddd");
+        testGetCandidates(ac, eval, prefix, expected);
 
-//        prefix = "zoobentho";
-//        expected = List.of("ship", "she", "shell");
-//        ac.pickCandidate(prefix, "zoobenthos");
-//        testGetCandidates(ac, eval, prefix, expected);
-//
-//        prefix = "zoobentho";
-//        expected = List.of("ship", "she", "shell");
-//        testGetCandidates(ac, eval, prefix, expected);
+        prefix = "zoobentho";
+        expected = List.of("ship", "she", "shell");
+        ac.pickCandidate(prefix, "zoobenthos");
+        testGetCandidates(ac, eval, prefix, expected);
+
+        prefix = "zoobentho";
+        expected = List.of("ship", "she", "shell");
+        testGetCandidates(ac, eval, prefix, expected);
+
+        prefix = "zoobenthosghgggs";
+        expected = List.of("ship", "she", "shell");
+        testGetCandidates(ac, eval, prefix, expected);
 
         prefix = "shi";
         expected = List.of("ship", "she", "shell");
