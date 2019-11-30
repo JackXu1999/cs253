@@ -110,6 +110,11 @@ public class AutocompleteTest {
 
         prefix = "";
         expected = List.of("a", "b", "c", "d", "e");
+        ac.pickCandidate(prefix, "hello");
+        testGetCandidates(ac, eval, prefix, expected);
+
+        prefix = "";
+        expected = List.of("a", "b", "c", "d", "e");
         testGetCandidates(ac, eval, prefix, expected);
 
         System.out.printf("Score: %d/%d\n", eval.correct, eval.total);
