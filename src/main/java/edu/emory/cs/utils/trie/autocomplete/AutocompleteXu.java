@@ -5,6 +5,7 @@ package edu.emory.cs.utils.trie.autocomplete;
 import edu.emory.cs.utils.trie.TrieNode;
 
 import java.io.FileNotFoundException;
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class AutocompleteXu <T extends Comparable<T>> extends Autocomplete<T>{
@@ -19,6 +20,18 @@ public class AutocompleteXu <T extends Comparable<T>> extends Autocomplete<T>{
         this.max = getMax();
     }
 
+    class comp implements Comparator<String> {
+        public int compare(String o1, String o2) {
+            if (o1.length() > o2.length()) {
+                return 1;
+            } else if (o1.length() < o2.length()) {
+                return -1;
+            } else {
+                return o1.compareTo(o2);
+            }
+        }
+    }
+
     /**
      * @param prefix the prefix of candidate words to return.
      * @return the list of candidate words for the specific prefix.
@@ -30,7 +43,6 @@ public class AutocompleteXu <T extends Comparable<T>> extends Autocomplete<T>{
         List<String> final_list = new ArrayList<>(); // final output list
         if (find(prefix_trimmed)!= null) { // the case when we can find the prefix in the tries
             TrieNode<T> node = find(prefix_trimmed); // find the node with trimmed prefix and to lowercase
-
             wordSuggest(node, prefix_trimmed, list);
             if (node.getValue() != null) {
                 for (int i = 0; i < ((List)node.getValue()).size(); i++) {
@@ -38,6 +50,7 @@ public class AutocompleteXu <T extends Comparable<T>> extends Autocomplete<T>{
                 }
                 final_list.addAll((List)node.getValue());
             }
+            Collections.sort(list, new comp());
             final_list.addAll(list);
             return (final_list.size() >= max) ? final_list.subList(0, max) : final_list.subList(0, final_list.size()) ;
         } else { // the case when we cannot find the prefix in the tries
@@ -64,13 +77,10 @@ public class AutocompleteXu <T extends Comparable<T>> extends Autocomplete<T>{
             }
             Map<Character, TrieNode<T>> child = current.getChildrenMap();
             for(Map.Entry<Character, TrieNode<T>> entry : child.entrySet()) {
-                if (list.size() >= max) break;
+                if (list.size() > max) break;
                 queue.add(entry.getValue());
             }
         }
-
-
-
 //        if (node.isEndState()) {
 //            list.add(prefix); // add to the list
 //        }
@@ -92,6 +102,9 @@ public class AutocompleteXu <T extends Comparable<T>> extends Autocomplete<T>{
             put(prefix_trimmed, null);
             TrieNode target = find(prefix_trimmed);
             target.setEndState(false);
+        }
+        if (find(candidate) == null) {
+            put(candidate, null);
         }
         TrieNode node = find(prefix_trimmed);
         if (node.getValue() == null) {
