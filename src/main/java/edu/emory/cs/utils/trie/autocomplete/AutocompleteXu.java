@@ -5,7 +5,6 @@ package edu.emory.cs.utils.trie.autocomplete;
 import edu.emory.cs.utils.trie.TrieNode;
 
 import java.io.FileNotFoundException;
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class AutocompleteXu <T extends Comparable<T>> extends Autocomplete<T>{
@@ -103,8 +102,11 @@ public class AutocompleteXu <T extends Comparable<T>> extends Autocomplete<T>{
             TrieNode target = find(prefix_trimmed);
             target.setEndState(false);
         }
+
         if (find(candidate) == null) {
             put(candidate, null);
+        } else {
+            find(candidate).setEndState(true);
         }
         TrieNode node = find(prefix_trimmed);
         if (node.getValue() == null) {
